@@ -17,3 +17,27 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
+# Laravel-specific
+/vendor
+/node_modules
+/public/storage
+/storage/*.key
+/storage/framework/cache/data/*
+/storage/logs/*
+/.env
+.phpunit.result.cache
+
+# IDEs and editors
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Composer and NPM logs
+composer.lock
+npm-debug.log
+yarn-error.log
