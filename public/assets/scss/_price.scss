@@ -1,0 +1,78 @@
+// pricing section  style from here
+
+.pricing__section__three{
+    background: url("../img/service/service__three__bg.png") rgba(255, 227, 193, 0.1) no-repeat;
+    .sub__title__two{font-weight: 700;text-transform: uppercase;}
+    .pricing__table__one{
+        background: $white;
+        padding: 60px;
+        .pricing__plan{
+            color:$theme-color;
+            font-size: 36px;
+            line-height: 20px;
+            font-weight: 700;
+        }
+        .price__membership{
+            font-size: 20px;
+            line-height: 20px;
+        }
+        .monthly__price{
+            font-size: 44px;
+            line-height: 20px;
+            font-weight: 700;
+        }
+        hr{
+            border-bottom: 1px solid rgba($color: #707070, $alpha: 0.1);
+        }
+        .service__list{
+            ul li{
+                position: relative;
+                margin-bottom: 25px;
+                font-size: 18px;
+                line-height: 20px;
+                &::before {
+                    content: "\2022";
+                    color: $theme-color;
+                    font-weight: bold;
+                    display: inline-block; 
+                    width: 1em;
+                    margin-left: -1.5em;
+                  }
+            }
+        }
+        .service__off__list{
+            ul li{
+                position: relative;
+                margin-bottom: 25px;
+                text-decoration: line-through;
+                &::before {
+                    content: "\2022";
+                    color: $theme-color;
+                    font-weight: bold;
+                    display: inline-block; 
+                    width: 1em;
+                    margin-left: -1.5em;
+                  }
+            }
+        }
+        .ht_btn{
+            border-radius:5px;
+            text-transform: capitalize;
+            background: #FF723A;
+        }
+    }
+    .pricing__table__two{
+        .pricing__plan{color:#F14D5D;}
+        .ht_btn{
+            color:#F14D5D;
+            background: rgba($color: #F14D5D, $alpha: 0.1);
+        }
+    }
+    .pricing__table__three{
+        .pricing__plan{color:$green;}
+        .ht_btn{
+            color:$green;
+            background: rgba($color: $green, $alpha: 0.1);
+        }
+    }
+}

@@ -1,0 +1,35 @@
+.video__section__three{
+    z-index:2;
+    .watch__video{
+        position: absolute;
+        left: 15%;
+        top: 23%;
+        max-width: 30%;
+    }
+    .video__content__rapper{
+        background: $white;
+        padding:60px 40px;
+        position: absolute;
+        left: 53%;
+        top: -14%;
+        width: 31%;
+        box-shadow: 2px 1px 20px -13px rgba(0,0,0,0.75);
+            -webkit-box-shadow: 2px 1px 20px -13px rgba(0,0,0,0.75);
+            -moz-box-shadow: 2px 1px 20px -13px rgba(0,0,0,0.75);
+            @media #{$max-lg} {
+                left: 0;
+                width: 100%;
+            }
+        .sub__title__two{
+            font-size: 20px;
+            line-height: 20px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        .section__title__main
+        p{
+            font-size: 20px;
+            line-height: 36px;
+        }
+    }
+}

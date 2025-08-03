@@ -1,0 +1,138 @@
+// portfolio  all section  style from here
+.portfolio__section{
+    .portfolio__btn{
+        .ht_btn{border-radius: 5px;}
+    }
+    .portfolio__wrapper{
+        &:hover .portfolio__icon__wrapper{ 
+            opacity:1;
+            visibility: visible;
+            transform: translateY(0px);
+
+        }
+        .portfolio__icon__wrapper{
+            opacity:0;
+            visibility: hidden;
+            @include transition(0.3s);
+            transform: translateY(-50px);
+        }
+        .portfolio__thumb__left{
+            background:rgba($color: $theme-color, $alpha: 0.1);
+            padding: 74px 17px;
+            z-index:1;
+            height: 450px;
+            @media #{$max-lg} {
+                height: auto;
+            }
+        }
+        .portfolio__thumb__right{
+            background:rgba($color: #8E66FF, $alpha: 0.1);
+            padding: 36px 17px;
+            z-index:1;
+            height: 450px;
+            @media #{$max-lg} {
+                height: auto;
+            }
+        }
+        .portfolio__icon__wrapper{
+            position: absolute;
+            background:$white;
+            padding:20px;
+            left: 20px;
+            bottom: 30px;
+            z-index:2;
+            width: 66%;
+        }
+        .portfolio__designation{
+            font-size: 16px;
+        }
+        .portfolio__content{
+            padding-right: 30px;
+        }
+        .portfolio__social__media{
+            @include transition(0.3s);
+                &:hover a{
+                    color: $white;
+                    background: $black;
+                }
+            a{
+                background: $theme-color;
+                line-height: 1;
+                display: inline-block;
+                color: $white;
+                padding: 14px 17px;
+                border-radius: 5px;
+                @include transition(0.3s);
+            }
+        }
+    
+    }
+}
+.portfolio__section__two{
+    background: url(../img/portfolio/portfolio__two__bg__01.png) no-repeat;
+    background-size: auto;
+    background-position: 48% 65px;
+    .portfolio__wrapper{
+        .portfolio__thumb__left{
+            background: none;
+            height: auto;
+            padding: 0;
+        }
+        .portfolio__thumb__right{
+            background: none;
+            height: auto;
+            padding: 0;
+        }
+        .portfolio__icon__wrapper{
+            width: 91%;
+        }
+
+    }
+}
+.portfolio__section__three{
+    background: none;
+    .sub__title__two{
+        text-transform: uppercase;
+        font-weight: 700;
+    }
+    .portfolio__wrapper{
+        background:rgba($color: #FFE3C1, $alpha: 0.1);
+        padding: 40px 0 40px 40px;
+        @include transition(0.3s);
+        &:hover{
+            background: $white;
+            box-shadow: 2px 1px 20px -13px rgba(0,0,0,0.75);
+            -webkit-box-shadow: 2px 1px 20px -13px rgba(0,0,0,0.75);
+            -moz-box-shadow: 2px 1px 20px -13px rgba(0,0,0,0.75);
+        }
+        &:hover .portfolio__social__media a{
+            color: $white;
+            background: $theme-color;
+        }
+    }
+    .portfolio__icon__wrapper{
+        padding:20px 0;
+        left: 20px;
+        bottom: 30px;
+        z-index:2;
+        width:100%;
+    }
+    .portfolio__designation{
+        font-size: 16px;
+    }
+    .portfolio__content{
+        padding-right: 30px;
+    }
+    .portfolio__social__media{
+        @include transition(0.3s);
+        a{
+            background: $white;
+            line-height: 1;
+            display: inline-block;
+            color: $theme-color;
+            padding: 14px 17px;
+            border-radius: 5px;
+            @include transition(0.3s);
+        }
+    }
+}

@@ -1,0 +1,211 @@
+
+// ============about  all section  style are here===========
+.counter__section {
+    background:url('../img/counter/counter__one__bg__o1.png') no-repeat center center;
+    background-size:auto;
+    z-index:1;
+    @media #{$max-lg} {
+        background: $grey;
+     }
+    .counter__wrapper{
+        padding: 30px 30px;
+        @media #{$max-xl} {
+           padding: 0;
+        }
+        @media #{$max-lg} {
+            padding: 30px 150px;
+         }
+         @media #{$max-md} {
+            padding: 30px 200px;
+         }
+         @media #{$max-xs} {
+            padding: 30px 90px;
+         }
+         @media #{$max-sm} {
+            padding: 30px 70px;
+         }
+         @media #{$max-xs-s} {
+            padding: 30px 0px;
+         }
+        .counter__number{
+            color: $white;
+            font-size:46px;
+            font-weight: 900;
+        }
+        .counter__title{
+            color: $white;
+            font-size:22px;
+            font-weight: 500;
+        }
+        .screen__04{
+            position: absolute;
+            top: -46px;
+            z-index: -1;
+            left: 10px;
+            max-width: 258px;
+        }
+        .screen__05{
+            position: absolute;
+            top: -60px;
+            z-index: -1;
+            left: 9px;
+            max-width: 262px;
+        }
+        .screen__06{
+            position: absolute;
+            top: -125px;
+            z-index: -1;
+            left: -65px;
+            max-width: 383px;
+        }
+        .screen__07{
+            position: absolute;
+            top: -146px;
+            z-index: -1;
+            right: -84px;
+            max-width: 438px;
+        }
+        .shape__006{
+            position: absolute;
+            left: -212px;
+            top: -123px;
+            z-index: -2;
+        }
+    }
+    .counter__wrapper_text{
+        padding: 0 0 0 133px;
+        @media #{$max-lg} {
+           padding: 0;
+        }
+        .counter__btn{
+            .ht_btn{border-radius: 5px;}
+        }
+        .accordion-button:not(.collapsed) {
+            border-radius: 5px;
+            color: $black;
+            background: $white;
+            transition: all 0.3s ease-in-out;
+            padding: 15px 18px;
+            font-size: 18px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: 36px;
+            padding-left: 60px;
+            box-shadow: 5px 15px 60px -17px rgba(0,0,0,0.23);
+            -webkit-box-shadow: 5px 15px 60px -17px rgba(0,0,0,0.23);
+            -moz-box-shadow: 5px 15px 60px -17px rgba(0,0,0,0.23);
+            @include transition(0.3s);
+          }
+          .accordion-button:focus{border:none;outline: none; box-shadow: none;}
+          .accordion-button.collapsed{
+            border-radius: 5px;
+            color: $black;
+            background: $white;
+            transition: all 0.3s ease-in-out;
+            padding: 15px 18px;
+            font-size: 18px;
+            font-weight: 700;
+            line-height: 36px;
+            padding-left: 60px;
+            @include transition(0.3s);
+            box-shadow: 5px 15px 60px -17px rgba(0,0,0,0.23);
+            -webkit-box-shadow: 5px 15px 60px -17px rgba(0,0,0,0.23);
+            -moz-box-shadow: 5px 15px 60px -17px rgba(0,0,0,0.23);
+          }
+          .accordion-button{
+            position: relative;
+            &::after{
+                position: absolute;
+                background: none;
+                content:'+';
+                height: auto;
+                font-size: 25px;
+                transition: all 0.3s ease-in-out;
+                line-height: initial;
+                left: 5%;
+                top: 15px;
+                @include transition(0.3s);
+            }
+          }
+          .accordion-button:not(.collapsed){
+            position: relative;
+            &::after{
+                position: absolute;
+                background: none;
+                content:'_';
+                height: auto;
+                font-size: 25px;
+                transition: all 0.3s ease-in-out;
+                line-height: initial;
+                left: 5%;
+                top: 20px;
+                @include transition(0.3s);
+            }
+          }
+          .accordion-item {
+            background: $white;
+            border: none;
+            transition: all 0.3s ease-in-out;
+            border-radius: 5px;
+          }
+          .accordion-body {
+            padding: 30px 7px 20px 18px;
+            box-shadow: 5px 15px 60px -17px rgba(0,0,0,0.23);
+            -webkit-box-shadow: 5px 15px 60px -17px rgba(0,0,0,0.23);
+            -moz-box-shadow: 5px 15px 60px -17px rgba(0,0,0,0.23);
+          }
+          .accordion-body p{
+            font-size: 18px;
+            font-weight: 400;
+            line-height: 32px;
+          }
+    }
+}
+.counter__section__two{
+    background: url("../img/counter/counter__two__bg__01.png") no-repeat;
+    background-size: auto;
+    background-position: -11% 25%;
+    @media #{$max-lg} {
+        background: none;
+    }
+    .counter__wrapper{
+        padding: 0;
+        .watch__video{
+            position: absolute;
+            right: 40px;
+            bottom: 40px;
+            span{
+                color: $white;
+                font-size: 20px;
+                font-weight: 700;
+                line-height: 24px;
+                margin-right: 20px;
+            }
+        }
+    }
+    .counter__wrapper_text {
+        padding: 0 0 0 91px;
+        @media #{$max-xl} {
+            padding: 0 0 0 0;
+        }
+        ul li{
+            color: $black;
+            font-size: 18px;
+            font-weight: 700;
+            line-height: 22px;
+            padding: 20px;
+            width: 100%;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            background: $white;
+            box-shadow: 5px 15px 60px -17px rgba(0,0,0,0.23);
+            -webkit-box-shadow: 5px 15px 60px -17px rgba(0,0,0,0.23);
+            -moz-box-shadow: 5px 15px 60px -17px rgba(0,0,0,0.23);
+            @include transition(0.3s);
+            &:hover{
+                background: $theme-color;
+                color: $white;
+            }
+        }
+    }
+}

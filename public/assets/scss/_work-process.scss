@@ -1,0 +1,87 @@
+//process__wrapper__bg
+.process__wrapper__bg {
+    position: relative;
+    z-index: 1;
+    .process__bg__map {
+        position: absolute;
+        z-index: -1;
+        max-width: 1220px;
+        text-align: center;
+    }
+    .btn__section {
+        padding: 0;
+        margin: 0;
+        list-style: none;
+        margin-bottom: -9px;
+        li {
+            &:last-child {
+                .ht_btn {
+                    color: $heding;
+                    background: $white;
+                    &::before {
+                        background: $theme-color;
+                    }
+                    &:hover {
+                        color: $white;
+                    }
+                }
+            }
+        }
+    }
+}
+
+//process__step
+.process__step {
+    overflow: hidden;
+    .icon {
+        display: inline-block;
+        background: $theme-color;
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        text-align: center;
+        line-height: 70px;
+        float: left;
+        margin-top: 3%;
+        margin-left: 15px;
+        @media #{$max-lg} {
+            margin-top: 1.5%;
+        }
+        @media #{$max-xs} {
+            margin-left: 0;
+        }
+    }
+    .process__title {
+        color: $heding;
+        font-size: 28px;
+        font-weight: 600;
+        background: $grey;
+        padding: 32px 30px 32px 55px;
+        border: 2px solid $grey;
+        margin-left: 50px;
+        span {
+            color: $body-text-color;
+            font-size: 18px;
+            font-weight: 400;
+            margin-top: 7px;
+        }
+        @media #{$max-lg} {
+            font-size: 22px;
+            padding: 25px 30px 25px 55px;
+        }
+        @media #{$max-md} {
+            font-size: 18px;
+            padding: 25px 5px 25px 25px;
+            span {
+                margin-top: 0;
+            }
+        }
+    }
+    &:hover {
+        .process__title {
+            border-color: $secondary-color;
+            background: $white;
+            box-shadow: 5px 15px 40px 0px rgba(24, 24, 24, 0.05);
+        }
+    }
+}
