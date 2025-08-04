@@ -47,32 +47,39 @@ class LoanController extends Controller
     return view('loan.index', compact('clients'));
 }
 
-  
   public function store(Request $request)
 {
     $validated = $request->validate([
-        'client_id'        => 'required|exists:clients,id',
-        'loan_amount'      => 'required|numeric|min:1000',
-        'interest_rate'    => 'required|numeric|min:0',
-        'term'             => 'required|integer|min:1',
-        'daily_installment'=> 'required|numeric|min:1',
-        'total_days'       => 'required|integer|min:1',
-        'start_date'       => 'required|date',
-        'notes'            => 'nullable|string',
+        'client_id'         => 'required|exists:clients,id',
+        'loan_amount'       => 'required|numeric|min:1000',
+        'interest_rate'     => 'required|numeric|min:0',
+        'term'              => 'required|integer|min:1',
+        'daily_installment' => 'required|numeric|min:1',
+        'total_days'        => 'required|integer|min:1',
+        'start_date'        => 'required|date',
+        'notes'             => 'nullable|string',
     ]);
 
-    // Calculate total amount from daily installment * total days
-    $total_amount = $validated['daily_installment'] * $validated['total_days'];
+    $expectedTotal = $validated['loan_amount'] + ($validated['loan_amount'] * $validated['interest_rate'] / 100);
+    $calculatedTotal = $validated['daily_installment'] * $validated['total_days'];
 
-    // Create the loan record
+    // Allowing a small margin for rounding differences
+    if (abs($expectedTotal - $calculatedTotal) > 1) {
+        return response()->json([
+            'message' => 'Total repayment does not match the loan amount with interest.',
+            'expected_total' => round($expectedTotal, 2),
+            'calculated_total' => round($calculatedTotal, 2),
+        ], 422);
+    }
+
     $loan = Loan::create([
         'client_id'       => $validated['client_id'],
         'loan_amount'     => $validated['loan_amount'],
-        'total_amount'    => $total_amount,
+        'total_amount'    => $calculatedTotal,
         'daily_repayment' => $validated['daily_installment'],
         'duration_days'   => $validated['total_days'],
         'start_date'      => $validated['start_date'],
-        'status'          => 'active', // default status
+        'status'          => 'active',
         'notes'           => $validated['notes'] ?? null,
     ]);
 
@@ -85,38 +92,47 @@ class LoanController extends Controller
 
 
 
+public function update(Request $request, $id)
+{
+    $validated = $request->validate([
+        'edit_client_id'      => 'required|exists:clients,id',
+        'edit_loan_amount'    => 'required|numeric|min:0',
+        'edit_total_amount'   => 'required|numeric|min:0',
+        'edit_daily_repayment'=> 'required|numeric|min:0',
+        'edit_start_date'     => 'required|date',
+        'edit_duration_days'  => 'required|numeric|min:1',
+        'edit_status'         => 'required|in:active,completed,defaulted',
+        'edit_notes'          => 'nullable|string',
+    ]);
 
-    public function update(Request $request, $id)
-    {
-        $validated = $request->validate([
-            'edit_client_id'         => 'required|exists:clients,id',
-            'edit_amount'            => 'required|numeric',
-            'edit_daily_installment' => 'required|numeric',
-            'edit_total_days'        => 'required|numeric',
-            'edit_start_date'        => 'required|date',
-            'edit_status'            => 'required|string',
-        ]);
-
-        $loan = Loan::findOrFail($id);
-
-        $data = [
-            'client_id'         => $validated['edit_client_id'],
-            'amount'            => $validated['edit_amount'],
-            'daily_installment' => $validated['edit_daily_installment'],
-            'total_days'        => $validated['edit_total_days'],
-            'start_date'        => $validated['edit_start_date'],
-            'total_repayable'   => $validated['edit_daily_installment'] * $validated['edit_total_days'],
-            'end_date'          => date('Y-m-d', strtotime($validated['edit_start_date'] . " +{$validated['edit_total_days']} days")),
-            'status'            => $validated['edit_status'],
-        ];
-
-        $loan->update($data);
-
+    $expectedTotal = $validated['edit_daily_repayment'] * $validated['edit_duration_days'];
+    
+    // Compare calculated total with provided total
+    if (abs($expectedTotal - $validated['edit_total_amount']) > 1) {
         return response()->json([
-            'message' => 'Loan updated successfully!',
-            'loan' => $loan
-        ]);
+            'message' => 'The total amount (with interest) does not match the repayment plan.',
+        ], 422);
     }
+
+    $loan = Loan::findOrFail($id);
+
+    $loan->update([
+        'client_id'       => $validated['edit_client_id'],
+        'loan_amount'     => $validated['edit_loan_amount'],
+        'total_amount'    => $validated['edit_total_amount'],
+        'daily_repayment' => $validated['edit_daily_repayment'],
+        'duration_days'   => $validated['edit_duration_days'],
+        'start_date'      => $validated['edit_start_date'],
+        'status'          => $validated['edit_status'],
+        'notes'           => $validated['edit_notes'],
+    ]);
+
+    return response()->json([
+        'message' => 'Loan updated successfully!',
+        'loan' => $loan
+    ]);
+}
+
 
     public function delete(Request $request)
     {

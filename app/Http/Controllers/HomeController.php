@@ -5,6 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Carbon;
+use App\Models\Loan;
+use App\Models\Client;
+
+
+
+
 
 class HomeController extends Controller
 {
@@ -12,12 +19,62 @@ class HomeController extends Controller
     {
         $this->middleware('auth');
     }
+public function index()
+{
+    $today = Carbon::today();
+    $startOfWeek = Carbon::now()->startOfWeek();
+    $startOfMonth = Carbon::now()->startOfMonth();
+    $startOfYear = Carbon::now()->startOfYear();
 
-    public function index()
-    {
-        return view('home');
-    }
+    $dailyLoanAmount = Loan::whereDate('created_at', $today)->sum('loan_amount');
+    $dailyLoanCount = Loan::whereDate('created_at', $today)->count();
 
+    $weeklyLoanAmount = Loan::whereBetween('created_at', [$startOfWeek, now()])->sum('loan_amount');
+    $weeklyLoanCount = Loan::whereBetween('created_at', [$startOfWeek, now()])->count();
+
+    $monthlyLoanAmount = Loan::whereBetween('created_at', [$startOfMonth, now()])->sum('loan_amount');
+    $monthlyLoanCount = Loan::whereBetween('created_at', [$startOfMonth, now()])->count();
+
+    $yearlyLoanAmount = Loan::whereYear('created_at', now()->year)->sum('loan_amount');
+    $yearlyLoanCount = Loan::whereYear('created_at', now()->year)->count();
+
+    $loanChartData = Loan::selectRaw('DATE(created_at) as date, SUM(loan_amount) as total')
+        ->where('created_at', '>=', now()->subDays(30))
+        ->groupBy('date')
+        ->orderBy('date')
+        ->pluck('total', 'date');
+
+    $totalLoanCount = Loan::count();
+
+    $statusBreakdown = Loan::selectRaw('status, COUNT(*) as count')
+        ->groupBy('status')
+        ->pluck('count', 'status');
+
+    $recentLoans = Loan::with('client')->latest()->take(5)->get();
+
+    $recentLoans->transform(function ($loan) {
+        $status = ucfirst($loan->status);
+
+        $badgeClass = match($loan->status) {
+            'completed' => 'bg-success',
+            'defaulted' => 'bg-danger',
+            'active' => 'bg-warning text-dark',
+            default => 'bg-secondary',
+        };
+
+        $loan->status_badge = '<span class="badge ' . $badgeClass . '">' . $status . '</span>';
+        return $loan;
+    });
+
+    return view('home', compact(
+        'dailyLoanAmount', 'dailyLoanCount',
+        'weeklyLoanAmount', 'weeklyLoanCount',
+        'monthlyLoanAmount', 'monthlyLoanCount',
+        'yearlyLoanAmount', 'yearlyLoanCount',
+        'loanChartData', 'totalLoanCount',
+        'recentLoans', 'statusBreakdown'
+    ));
+}
 
     public function chat_index()
     {

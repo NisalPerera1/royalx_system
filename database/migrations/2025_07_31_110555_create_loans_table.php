@@ -14,14 +14,14 @@ return new class extends Migration
 
     Schema::create('loans', function (Blueprint $table) {
     $table->uuid('id')->primary();
-    $table->uuid('client_id'); // changed from bigInteger to uuid/string
+    $table->uuid('client_id');
     $table->decimal('loan_amount', 10, 2);
     $table->decimal('total_amount', 10, 2);
     $table->decimal('daily_repayment', 10, 2);
     $table->date('start_date');
     $table->integer('duration_days');
     $table->enum('status', ['active', 'completed', 'defaulted'])->default('active');
-                $table->text('notes')->nullable();
+    $table->text('notes')->nullable();
 
     $table->timestamps();
 });

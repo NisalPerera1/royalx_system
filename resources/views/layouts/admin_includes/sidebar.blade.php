@@ -10,8 +10,8 @@
         </div>
         <div class="nk-sidebar-brand">
             <a href="{{ route('home') }}" class="logo-link nk-sidebar-logo">
-                <img class="logo-light logo-img" src="{{ asset('assets/img/nisal.png') }}" alt="logo" style="width: 100%; max-width: 200px; height: auto;">
-                <img class="logo-dark logo-img" src="{{ asset('assets/img/nisal.png') }}" alt="logo-dark">
+                <img class="logo-light logo-img" src="{{ asset('assets/img/logoro.png') }}" alt="logo" style="width: 100%; max-width: 200px; height: auto;">
+                <img class="logo-dark logo-img" src="{{ asset('assets/img/logoro.png') }}" alt="logo-dark">
             </a>
         </div>
     </div>

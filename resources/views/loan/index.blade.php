@@ -132,70 +132,95 @@
         </div>
     </div>
 
-    <!-- Edit Loan Modal -->
-    <div class="modal fade" id="EditLoanModal" tabindex="-1" role="dialog">
-        <div class="modal-dialog modal-lg">
-            <form id="editLoanForm" enctype="multipart/form-data">
-                @csrf
-                @method('PUT')
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Edit Loan</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                    </div>
-                    <div class="modal-body">
-                        <input type="hidden" id="edit_loan_id" name="loan_id">
+<!-- Edit Loan Modal -->
+<div class="modal fade" id="EditLoanModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <form id="editLoanForm" enctype="multipart/form-data">
+            @csrf
+            @method('PUT')
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit Loan</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
 
-                        <div class="row">
-                            <div class="col-md-6">
-                                <!-- Client -->
-                                <div class="mb-3">
-                                    <label class="form-label">Client</label>
-                                    <select id="edit_client_id" name="edit_client_id" class="form-control" required>
-                                        @foreach($clients as $client)
-                                            <option value="{{ $client->id }}">{{ $client->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
+                <div class="modal-body">
+                    <input type="hidden" id="edit_loan_id" name="edit_loan_id">
 
-                                <div class="mb-3">
-                                    <label class="form-label">Amount</label>
-                                    <input type="number" id="edit_amount" name="edit_amount" class="form-control" required>
-                                </div>
-
-                                <div class="mb-3">
-                                    <label class="form-label">Interest Rate (%)</label>
-                                    <input type="number" id="edit_interest_rate" name="edit_interest_rate" class="form-control" required>
-                                </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <!-- Client Dropdown -->
+                            <div class="mb-3">
+                                <label class="form-label">Client</label>
+                                <select id="edit_client_id" name="edit_client_id" class="form-control" required>
+                                    @foreach($clients as $client)
+                                        <option value="{{ $client->id }}">{{ $client->name }}</option>
+                                    @endforeach
+                                </select>
                             </div>
 
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label class="form-label">Term (months)</label>
-                                    <input type="number" id="edit_term" name="edit_term" class="form-control" required>
-                                </div>
+                            <!-- Loan Amount -->
+                            <div class="mb-3">
+                                <label class="form-label">Loan Amount</label>
+                                <input type="number" id="edit_loan_amount" name="edit_loan_amount" class="form-control" required>
+                            </div>
 
-                                <div class="mb-3">
-                                    <label class="form-label">Start Date</label>
-                                    <input type="date" id="edit_start_date" name="edit_start_date" class="form-control" required>
-                                </div>
+                            <!-- Total Amount -->
+                            <div class="mb-3">
+                                <label class="form-label">Total Amount (with interest)</label>
+                                <input type="number" id="edit_total_amount" name="edit_total_amount" class="form-control" required>
+                            </div>
 
-                                <div class="mb-3">
-                                    <label class="form-label">Notes</label>
-                                    <textarea id="edit_notes" name="edit_notes" class="form-control" rows="2"></textarea>
-                                </div>
+                            <!-- Daily Repayment -->
+                            <div class="mb-3">
+                                <label class="form-label">Daily Repayment</label>
+                                <input type="number" id="edit_daily_repayment" name="edit_daily_repayment" class="form-control" required>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <!-- Start Date -->
+                            <div class="mb-3">
+                                <label class="form-label">Start Date</label>
+                                <input type="date" id="edit_start_date" name="edit_start_date" class="form-control" required>
+                            </div>
+
+                            <!-- Duration (Days) -->
+                            <div class="mb-3">
+                                <label class="form-label">Duration (Days)</label>
+                                <input type="number" id="edit_duration_days" name="edit_duration_days" class="form-control" required>
+                            </div>
+
+                            <!-- Status -->
+                            <div class="mb-3">
+                                <label class="form-label">Status</label>
+                                <select id="edit_status" name="edit_status" class="form-control">
+                                    <option value="active">Active</option>
+                                    <option value="completed">Completed</option>
+                                    <option value="defaulted">Defaulted</option>
+                                </select>
+                            </div>
+
+                            <!-- Notes -->
+                            <div class="mb-3">
+                                <label class="form-label">Notes</label>
+                                <textarea id="edit_notes" name="edit_notes" class="form-control" rows="2"></textarea>
                             </div>
                         </div>
                     </div>
-
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-info">Update Loan</button>
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    </div>
                 </div>
-            </form>
-        </div>
+
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-info">Update Loan</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </form>
     </div>
+</div>
+
+
+
 
     <!-- Delete Loan Modal -->
     <div class="modal fade" id="deleteLoanModal" tabindex="-1">
@@ -300,35 +325,35 @@ $("#loanForm").submit(function(e) {
     });
 });
 
-    // Edit client function
- function editclient(id, name, address, contact, id_proof, guarantor, id_proof_file_url) {
-    $('#edit_Client_id').val(id);
-    $('#edit_name').val(name);
-    $('#edit_address').val(address);
-    $('#edit_contact').val(contact);
-    $('#edit_id_proof').val(id_proof);
-    $('#edit_guarantor').val(guarantor);
+function editloan(id, client_id, loan_amount, total_amount, daily_repayment, start_date, duration_days, status, notes) {
+    $('#edit_loan_id').val(id);
+    $('#edit_client_id').val(client_id);
+    $('#edit_loan_amount').val(loan_amount);
+    $('#edit_total_amount').val(total_amount);
+    $('#edit_daily_repayment').val(daily_repayment);
+    $('#edit_start_date').val(start_date);
+    $('#edit_duration_days').val(duration_days);
+    $('#edit_status').val(status);
+    $('#edit_notes').val(notes);
 
-    console.log("Image URL:", id_proof_file_url); // For debugging
-    $('#edit-image-preview').attr('src', id_proof_file_url); // ✅ Correct ID
-
-    const modal = new bootstrap.Modal(document.getElementById('EditModalForm'));
+    const modal = new bootstrap.Modal(document.getElementById('EditLoanModal'));
     modal.show();
+    console.log('Editing Loan ID:', id);
 }
 
 
-
-
-   // Update client form submit
-$("form#editclientForm").submit(function (e) {
+$("form#editLoanForm").submit(function (e) {
     e.preventDefault();
 
     var formData = new FormData(this);
-    var clientId = $('#edit_Client_id').val(); // Corrected ID field
+    var loanId = $('#edit_loan_id').val();
+
+    // Add method spoofing
+    formData.append('_method', 'PUT');
 
     $.ajax({
         type: 'POST',
-        url: "{{ route('client.update', ':id') }}".replace(':id', clientId),
+        url: "{{ route('loan.update', ':id') }}".replace(':id', loanId),
         data: formData,
         cache: false,
         contentType: false,
@@ -338,7 +363,7 @@ $("form#editclientForm").submit(function (e) {
         },
         success: function (data) {
             $('.datatable-init').DataTable().ajax.reload();
-            $('#EditModalForm').modal('hide');
+            $('#EditLoanModal').modal('hide');
 
             setTimeout(function () {
                 toastr.clear();
@@ -357,6 +382,10 @@ $("form#editclientForm").submit(function (e) {
                             ui: 'is-dark'
                         });
                     }, 500);
+                });
+            } else {
+                NioApp.Toast('Something went wrong. Please try again.', 'error', {
+                    position: 'bottom-right'
                 });
             }
         }

@@ -9026,3 +9026,9 @@ top : 12%
         max-width: 1530px;
     }
 }
+
+#loanStatusPieChart {
+    width: 100% !important;
+    height: auto !important;
+    aspect-ratio: 1/1;
+}
